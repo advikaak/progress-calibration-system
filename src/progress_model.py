@@ -24,6 +24,14 @@ class ProgressModel:
 
         alignment_score = process_score + outcome_score + time_horizon_score - (self.comparison_exposure * 5)
         return alignment_score
+    
+    def get_distortion_risk(self):
+        if self.comparison_exposure >= 7 and self.time_horizon_weeks <= 2:
+            return "High distortion risk"
+        elif self.comparison_exposure >= 4 and self.time_horizon_weeks <= 4:
+            return "Moderate distortion risk"
+        else:
+            return "Low distortion risk"
 
     def get_progress_status(self):
         score = self.calculate_alignment_score()
@@ -58,5 +66,6 @@ if __name__ == "__main__":
         print("  Outcome Score:", model.calculate_outcome_score())
         print("  Time Horizon Score:", model.calculate_time_horizon_score())
         print("  Alignment Score:", model.calculate_alignment_score())
+        print("  Distortion Risk:", model.get_distortion_risk())
         print("  Progress Status:", model.get_progress_status())
         print()
