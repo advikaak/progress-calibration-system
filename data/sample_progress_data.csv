@@ -1,6 +1,6 @@
-name,actions_completed,goals_completed,comparison_exposure
-Student_A,5,2,3
-Student_B,8,1,7
-Student_C,3,3,2
-Student_D,6,0,8
-Student_E,9,4,1
+name,actions_completed,goals_completed,comparison_exposure,time_horizon_weeks
+Student_A,5,2,3,4
+Student_B,8,1,7,2
+Student_C,3,3,2,8
+Student_D,6,0,8,1
+Student_E,9,4,1,12
