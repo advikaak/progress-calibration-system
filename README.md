@@ -29,3 +29,11 @@ progress-calibration-system/
 ├── README.md
 ├── .gitignore
 └── LICENSE
+
+## How to Run
+
+1. Make sure Python 3 is installed.
+2. Run the analysis script:
+
+```bash
+/Library/Developer/CommandLineTools/usr/bin/python3 src/visualize_results.py
