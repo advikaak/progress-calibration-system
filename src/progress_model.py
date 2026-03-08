@@ -21,10 +21,9 @@ class ProgressModel:
         process_score = self.calculate_process_score()
         outcome_score = self.calculate_outcome_score()
         time_horizon_score = self.calculate_time_horizon_score()
-
         alignment_score = process_score + outcome_score + time_horizon_score - (self.comparison_exposure * 5)
         return alignment_score
-    
+
     def get_distortion_risk(self):
         if self.comparison_exposure >= 7 and self.time_horizon_weeks <= 2:
             return "High distortion risk"
@@ -50,8 +49,26 @@ def load_progress_data(file_path):
         return list(reader)
 
 
+def save_results(file_path, results):
+    fieldnames = [
+        "name",
+        "process_score",
+        "outcome_score",
+        "time_horizon_score",
+        "alignment_score",
+        "distortion_risk",
+        "progress_status",
+    ]
+
+    with open(file_path, mode="w", newline="") as file:
+        writer = csv.DictWriter(file, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(results)
+
+
 if __name__ == "__main__":
     data = load_progress_data("data/sample_progress_data.csv")
+    results = []
 
     for row in data:
         model = ProgressModel(
@@ -61,11 +78,26 @@ if __name__ == "__main__":
             time_horizon_weeks=int(row["time_horizon_weeks"])
         )
 
+        result = {
+            "name": row["name"],
+            "process_score": model.calculate_process_score(),
+            "outcome_score": model.calculate_outcome_score(),
+            "time_horizon_score": model.calculate_time_horizon_score(),
+            "alignment_score": model.calculate_alignment_score(),
+            "distortion_risk": model.get_distortion_risk(),
+            "progress_status": model.get_progress_status(),
+        }
+
+        results.append(result)
+
         print(f"Name: {row['name']}")
-        print("  Process Score:", model.calculate_process_score())
-        print("  Outcome Score:", model.calculate_outcome_score())
-        print("  Time Horizon Score:", model.calculate_time_horizon_score())
-        print("  Alignment Score:", model.calculate_alignment_score())
-        print("  Distortion Risk:", model.get_distortion_risk())
-        print("  Progress Status:", model.get_progress_status())
+        print("  Process Score:", result["process_score"])
+        print("  Outcome Score:", result["outcome_score"])
+        print("  Time Horizon Score:", result["time_horizon_score"])
+        print("  Alignment Score:", result["alignment_score"])
+        print("  Distortion Risk:", result["distortion_risk"])
+        print("  Progress Status:", result["progress_status"])
         print()
+
+    save_results("results/progress_analysis_results.csv", results)
+    print("Results saved to results/progress_analysis_results.csv")

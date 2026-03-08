@@ -1,0 +1,6 @@
+name,process_score,outcome_score,time_horizon_score,alignment_score,distortion_risk,progress_status
+Student_A,50,40,8,83,Low distortion risk,Moderate progress
+Student_B,80,20,4,69,High distortion risk,Moderate progress
+Student_C,30,60,16,96,Low distortion risk,Strong progress
+Student_D,60,0,2,22,High distortion risk,"Progress may feel low, but the current time horizon may be too short"
+Student_E,90,80,24,189,Low distortion risk,Strong progress
